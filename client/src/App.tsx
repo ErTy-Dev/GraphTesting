@@ -1,10 +1,12 @@
-import { useSelector } from 'react-redux';
-import { RootState } from './store';
+import { Graph } from './Graph';
+import '@picocss/pico';
 
 function App() {
-	const data = useSelector<RootState>(state => state.graph);
-	console.log(data);
-	return <></>;
+	return (
+		<div className='container'>
+			<Graph />
+		</div>
+	);
 }
 
 export default App;

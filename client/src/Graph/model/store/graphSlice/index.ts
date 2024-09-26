@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-interface Node {
+export interface Node {
 	id: string;
 	type: string;
 	name: string;
@@ -8,7 +8,7 @@ interface Node {
 	tokens: { name: string; amount: number; usdt_amount: number }[];
 }
 
-interface Link {
+export interface Link {
 	id: string;
 	sender: string;
 	receiver: string;
