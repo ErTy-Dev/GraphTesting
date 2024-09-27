@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 
 const Graph = () => {
 	const refRoot = useRef<HTMLDivElement>(null);
-	const { links, nodes } = useAppSelector(state => state.graph);
+	const { links, nodes, loading } = useAppSelector(state => state.graph);
 	const dispatch = useAppDispatch();
 	const [inputAddress, setInputAddress] = useState('0x0000');
 	const [isUSDTVisible, setIsUSDTVisible] = useState(true);
@@ -182,7 +182,9 @@ const Graph = () => {
 			<div>
 				<input type='text' placeholder='Введите адрес' value={inputAddress} onChange={handleAddressChange} />
 				<div className='grid'>
-					<button onClick={handleSearch}>Найти подграф</button>
+					<button aria-busy={loading} onClick={handleSearch}>
+						{!loading && 'Найти подграф'}
+					</button>
 					<button onClick={toggleLinkAmount}>{isUSDTVisible ? 'Показать по токенам' : 'Показать в долларах'}</button>
 					{/* <button onClick={groupNodes} disabled={!isGrouped}>
 						Группировать

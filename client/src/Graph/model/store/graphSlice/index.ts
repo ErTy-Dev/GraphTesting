@@ -29,14 +29,19 @@ const initialState: GraphState = {
 };
 
 export const fetchGraphData = createAsyncThunk('graph/fetchGraphData', async (address: string) => {
-	const response = await fetch('http://localhost:3000/messages', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ address }),
-	});
-	return await response.json();
+	try {
+		const response = await fetch('http://localhost:3000/messages', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({ address }),
+		});
+		return await response.json();
+	} catch (e) {
+		alert(e);
+		throw e;
+	}
 });
 
 const graphSlice = createSlice({
@@ -51,6 +56,9 @@ const graphSlice = createSlice({
 			.addCase(fetchGraphData.fulfilled, (state, action) => {
 				state.nodes = action.payload.nodes;
 				state.links = action.payload.links;
+				state.loading = false;
+			})
+			.addCase(fetchGraphData.rejected, state => {
 				state.loading = false;
 			});
 	},
